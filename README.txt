@@ -3,6 +3,7 @@ What is it?
 
 LFS Carousel is pluggable carousel/slider application for use with LFS (Lighting Fast Shop)
 
+See project wiki for more details: https://bitbucket.org/pigletto/lfs-carousel/wiki/Home
 
 Basic usage
 ===========
