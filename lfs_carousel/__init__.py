@@ -1,1 +1,1 @@
-from lfs_carousel.views import LFCCarouselView, carousel
+from lfs_carousel.views import LFSCarouselView, carousel
