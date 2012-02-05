@@ -144,7 +144,6 @@ class LFSCarouselView(object):
 
         return HttpResponse(result)
 
-    #@permission_required("core.manage_shop", login_url="/login/")
     def move_item(self, request, id):
         """Moves the items with passed id up or down.
 
@@ -228,7 +227,7 @@ class LFSCarouselView(object):
             url(r'^add-item/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.add_item), name="lfs_carousel_add_item"),
             url(r'^update-items/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.update_items), name="lfs_carousel_update_items"),
             url(r'^manage-items/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.manage_items), name="lfs_carousel_manage_items"),
-            url(r'^move-item/(?P<id>\d+)$', self.move_item, name="lfc_carousel_move_item"),
+            url(r'^move-item/(?P<id>\d+)$', self.move_item, name="lfs_carousel_move_item"),
         )
 
         return urlpatterns
