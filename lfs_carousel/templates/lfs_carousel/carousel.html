@@ -1,0 +1,12 @@
+<div id='coin-slider'>
+    {% for item in items %}
+        <a href="{{ item.link }}">
+            <img src="{{ item.image.url_400x400 }}" alt="{{ item.title }}" />
+            {% if item.title %}
+                <span>
+                    {{ item.title }}
+                </span>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>

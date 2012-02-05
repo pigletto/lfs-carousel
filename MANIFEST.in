@@ -1,0 +1,3 @@
+include README.txt
+recursive-include lfs_carousel/locale *
+recursive-include lfs_carousel/templates *

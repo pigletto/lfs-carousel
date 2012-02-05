@@ -1,0 +1,1 @@
+from lfs_carousel.views import LFCCarouselView, carousel
