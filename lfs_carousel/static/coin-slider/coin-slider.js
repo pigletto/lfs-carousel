@@ -232,8 +232,8 @@
 			$(el).append("<div id='cs-navigation-"+el.id+"'></div>");
 			$('#cs-navigation-'+el.id).hide();
 			
-			$('#cs-navigation-'+el.id).append("<a href='#' id='cs-prev-"+el.id+"' class='cs-prev'>prev</a>");
-			$('#cs-navigation-'+el.id).append("<a href='#' id='cs-next-"+el.id+"' class='cs-next'>next</a>");
+			$('#cs-navigation-'+el.id).append("<a href='#' id='cs-prev-"+el.id+"' class='cs-prev'>" + params[el.id].prev_text + "</a>");
+			$('#cs-navigation-'+el.id).append("<a href='#' id='cs-next-"+el.id+"' class='cs-next'>" + params[el.id].next_text + "</a>");
 			$('#cs-prev-'+el.id).css({
 				'position' 	: 'absolute',
 				'top'		: params[el.id].height/2 - 15,
@@ -480,7 +480,9 @@
 		effect: '', // random, swirl, rain, straight
 		navigation: true, // prev next and buttons
 		links : true, // show images as links 
-		hoverPause: true // pause on hover		
+		hoverPause: true, // pause on hover
+        prev_text: 'prev',  // text for prev button
+        next_text: 'next'   // text for next button
 	};	
 	
 })(jQuery);
