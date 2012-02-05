@@ -27,7 +27,7 @@ import logging
 logger = logging.getLogger("default")
 
 
-class LFCCarouselView(object):
+class LFSCarouselView(object):
 
     def refresh_positions(self, ct, object_id):
         """ order items
@@ -237,4 +237,4 @@ class LFCCarouselView(object):
     def urls(self):
         return self.get_urls()
 
-carousel = LFCCarouselView()
+carousel = LFSCarouselView()
