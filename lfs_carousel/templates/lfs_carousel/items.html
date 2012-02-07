@@ -90,7 +90,7 @@
 
 <h2 class="heading-middle">{% trans 'Add items' %}</h2>
 
-<div id="content">
+<div id="carousel-content">
     <form id="file_upload" action="{% url lfs_carousel_add_item ct.pk obj.pk %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input class="button" type="file" name="file" multiple>
