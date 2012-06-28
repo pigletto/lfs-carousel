@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-28 00:01-0700\n"
+"PO-Revision-Date: 2012-06-28 00:01-0700n"
+"Last-Translator: Noe Nieto<nnieto@noenieto.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:27
+msgid "Content type"
+msgstr "Tipo de contenido"
+
+#: models.py:28
+msgid "Content id"
+msgstr "Id del contenido"
+
+#: models.py:31 templates/lfs_carousel/items.html:21
+msgid "Title"
+msgstr "Título"
+
+#: models.py:32 templates/lfs_carousel/items.html:18
+msgid "Image"
+msgstr "Imagen"
+
+#: models.py:33 templates/lfs_carousel/items.html:24
+msgid "URL"
+msgstr "Dirección URL"
+
+#: models.py:34 templates/lfs_carousel/items.html:27
+msgid "Text"
+msgstr "Texto"
+
+#: models.py:35 templates/lfs_carousel/items.html:30
+msgid "Position"
+msgstr "Posición"
+
+#: views.py:67
+msgid "Carousel items have been added."
+msgstr "Se añadieron elementos al carrusel."
+
+#: views.py:102
+msgid "Carousel items have been deleted."
+msgstr "Se eliminaron elementos del carrusel."
+
+#: views.py:112
+msgid "Carousel items have been updated."
+msgstr "Se actualizaron los elementos del carrusel."
+
+#: templates/lfs_carousel/items.html:3
+msgid "Carousel items"
+msgstr "Elementos del carrusel"
+
+#: templates/lfs_carousel/items.html:33
+msgid "Manage"
+msgstr "Administrar"
+
+#: templates/lfs_carousel/items.html:66
+msgid "Move Up"
+msgstr "Subir"
+
+#: templates/lfs_carousel/items.html:71
+msgid "Move Down"
+msgstr "Bajar"
+
+#: templates/lfs_carousel/items.html:82
+msgid "Update items"
+msgstr "Actualizar elementos"
+
+#: templates/lfs_carousel/items.html:84
+msgid "Delete items"
+msgstr "Borrar elementos"
+
+#: templates/lfs_carousel/items.html:88
+msgid "There are no items"
+msgstr "No tiene elementos"
+
+#: templates/lfs_carousel/items.html:91
+msgid "Add items"
+msgstr "Añadir elementos"
+
+#: templates/lfs_carousel/items.html:98
+msgid "Uploading images:"
+msgstr "Subiendo imágenes:"
