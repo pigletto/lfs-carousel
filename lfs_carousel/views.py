@@ -145,22 +145,19 @@ class LFSCarouselView(object):
         return HttpResponse(result)
 
     def move_item(self, request, id):
-        """Moves the items with passed id up or down.
+        """ Moves the items with passed id up or down.
 
-        **Parameters:**
+            **Parameters:**
+                id
+                    The id of the item which should be edited.
 
-            id
-                The id of the item which should be edited.
+            **Query String:**
+                direction
+                    The direction in which the item should be moved. One of 0 (up)
+                    or 1 (down).
 
-        **Query String:**
-
-            direction
-                The direction in which the item should be moved. One of 0 (up)
-                or 1 (down).
-
-        **Permission:**
-
-            edit (of the belonging content object)
+            **Permission:**
+                edit (of the belonging content object)
         """
         item = self.get_item_cls().objects.get(pk=id)
         obj = item.content
@@ -190,18 +187,15 @@ class LFSCarouselView(object):
 
     # copied from contrib.admin.sites
     def has_permission(self, request):
-            """
-            Returns True if the given HttpRequest has permission to view
+        """ Returns True if the given HttpRequest has permission to view
             *at least one* page in the admin site.
-            """
-            return request.user.is_active and request.user.has_perm('core.manage_shop')
+        """
+        return request.user.is_active and request.user.has_perm('core.manage_shop')
 
     def carousel_view(self, view, cacheable=False):
-        """
-        Decorator to create an carousel view attached to this ``LFSCarousel``. This
-        wraps the view and provides permission checking by calling
-        ``self.has_permission``.
-
+        """ Decorator to create an carousel view attached to this ``LFSCarousel``. This
+            wraps the view and provides permission checking by calling
+            ``self.has_permission``.
         """
         def inner(request, *args, **kwargs):
             if not self.has_permission(request):
