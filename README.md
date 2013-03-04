@@ -16,7 +16,7 @@ Basic usage
     (...)
     (r'^carousel/', include(carousel.urls)),
     (...)
-)
+  )
   
 * add carousel to management panel to 'Shop' -> settings page as new tab:
   copy lfs/templates/manage/shop/shop.html to your theme and modify it by adding:
