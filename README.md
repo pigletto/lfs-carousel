@@ -11,45 +11,53 @@ Basic usage
 * add lfs_carousel to INSTALLED_APPS in your settings.py
 * add lfs_carousel urls to your site urls.py like:
 
-  from lfs_carousel import carousel
-  urlpatterns += patterns("",
-    (...)
-    (r'^carousel/', include(carousel.urls)),
-    (...)
-  )
+  <pre><code>
+      from lfs_carousel import carousel
+      urlpatterns += patterns("",
+        (...)
+        (r'^carousel/', include(carousel.urls)),
+        (...)
+      )
+  </code></pre>
   
 * add carousel to management panel to 'Shop' -> settings page as new tab:
   copy lfs/templates/manage/shop/shop.html to your theme and modify it by adding:
-  {% load lfs_carousel_tags %}
-  ( ... )
-  <div id="manage-tabs">
-    <ul>
-        <li class="ui-tabs-nav-item"><a href="#data">{% trans 'Shop' %}</a></li>
-        <li class="ui-tabs-nav-item"><a href="#default-values">{% trans 'Default Values' %}</a></li>
-        <li class="ui-tabs-nav-item"><a href="#portlets">{% trans 'Portlets' %}</a></li>
-        **<li class="ui-tabs-nav-item"><a href="#carousel-items">{% trans 'Carousel' %}</a></li>**
-    </ul>
-  (...)
-  <div id="portlets">
-    {{ portlets|safe }}
-  </div>
-  **{% carousel_management shop %}**
+  <pre><code>
+      {% load lfs_carousel_tags %}
+      ( ... )
+      <div id="manage-tabs">
+        <ul>
+            <li class="ui-tabs-nav-item"><a href="#data">{% trans 'Shop' %}</a></li>
+            <li class="ui-tabs-nav-item"><a href="#default-values">{% trans 'Default Values' %}</a></li>
+            <li class="ui-tabs-nav-item"><a href="#portlets">{% trans 'Portlets' %}</a></li>
+            **<li class="ui-tabs-nav-item"><a href="#carousel-items">{% trans 'Carousel' %}</a></li>**
+        </ul>
+      (...)
+      <div id="portlets">
+        {{ portlets|safe }}
+      </div>
+      {% carousel_management shop %}
+  </code></pre>
   
 * add carousel to your shop's start page
   By default lfs_carousel uses coin-slider but you can use anything you want. 
   First add necessary JavaScript and CSS files either to base.html or to shop.html:
-  
-  <link rel="stylesheet" href="{{ STATIC_URL }}coin-slider/coin-slider-styles.css" type="text/css" />
-  <script type="text/javascript" src="{{ STATIC_URL }}coin-slider/coin-slider.min.js"></script>
-  <script type="text/javascript">
-        $(document).ready(function() {
-            $('#coin-slider').coinslider({ width: 400, navigation: true, delay: 10000, hoverPause: true });
-        });
-  </script>
+
+  <pre><code>
+      <link rel="stylesheet" href="{{ STATIC_URL }}coin-slider/coin-slider-styles.css" type="text/css" />
+      <script type="text/javascript" src="{{ STATIC_URL }}coin-slider/coin-slider.min.js"></script>
+      <script type="text/javascript">
+            $(document).ready(function() {
+                $('#coin-slider').coinslider({ width: 400, navigation: true, delay: 10000, hoverPause: true });
+            });
+      </script>
+  </code></pre>
   
   Second: copy lfstheme/templates/lfs/shop/shop.html to your theme and add:
+  <pre><code>
     {% load lfs_carousel_tags %}
     (...)
     {% carousel_show shop %}
+  </code></pre>
   
 * run syncdb (!)
