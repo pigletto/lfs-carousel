@@ -16,6 +16,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from lfs.caching.utils import lfs_get_object_or_404
+from lfs.core.translation_utils import get_languages_list
 from lfs.core.utils import LazyEncoder
 
 # lfs_carousel imports
@@ -113,24 +114,26 @@ class LFSCarouselView(object):
             for key, value in request.POST.items():
                 if not '-' in key:
                     continue
-                id = key.split("-")[1]
+                item_ids = key.split("-")
+                if len(item_ids) > 2:
+                    item_id = item_ids[2]
+                else:
+                    item_id = item_ids[1]
                 try:
-                    item = self.get_item_cls().objects.get(pk=id)
+                    item = self.get_item_cls().objects.get(pk=item_id)
                 except ObjectDoesNotExist:
                     pass
                 else:
-                    if key.startswith("title-"):
-                        item.title = value
-                        item.save()
-                    elif key.startswith("position-"):
-                        item.position = value
-                        item.save()
-                    elif key.startswith("link-"):
-                        item.link = value
-                        item.save()
-                    elif key.startswith("text-"):
-                        item.text = value
-                        item.save()
+                    for lang in get_languages_list():
+                        if key.startswith("title-%s-" % lang):
+                            setattr(item, 'title_%s' % lang, value)
+                        elif key.startswith("position-"):
+                            item.position = value
+                        elif key.startswith("link-%s-" % lang):
+                            setattr(item, 'link_%s' % lang, value)
+                        elif key.startswith("text-%s-" % lang):
+                            setattr(item, 'text_%s' % lang, value)
+                    item.save()
 
         self.refresh_positions(ct, object_id)
 

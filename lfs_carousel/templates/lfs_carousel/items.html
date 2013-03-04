@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n lfs_modeltranslation_tags %}
 <div id="carousel-items">
 <h2 class="heading-first">{% trans 'Carousel items' %}</h2>
 
@@ -48,13 +48,25 @@
                              style="float:left"/>
                     </td>
                     <td class="small">
-                        <input type="text" name="title-{{ item.id }}" value="{{ item.title }}" style="width:300px" />
+                        {% fortranslatedattrs item "title" 1 %}
+                            <div style="white-space: nowrap">
+                                <label style="width: 30px; display: inline-block;">[{{ translation_language }}]:</label> <input type="text" name="title-{{ translation_language }}-{{ item.id }}" value="{{ translated_attr|default_if_none:"" }}" style="width:280px" />
+                            </div>
+                        {% endfortranslatedattrs %}
                     </td>
                     <td class="small">
-                        <input type="text" name="link-{{ item.id }}" value="{{ item.link }}" style="width:300px" />
+                        {% fortranslatedattrs item "link" 1 %}
+                            <div style="white-space: nowrap">
+                                <label style="width: 30px; display: inline-block;">[{{ translation_language }}]:</label> <input type="text" name="link-{{ translation_language }}-{{ item.id }}" value="{{ translated_attr|default_if_none:"" }}" style="width:280px" />
+                            </div>
+                        {% endfortranslatedattrs %}
                     </td>
                     <td class="small">
-                        <input type="text" name="text-{{ item.id }}" value="{{ item.text }}" style="width:300px" />
+                        {% fortranslatedattrs item "text" 1 %}
+                            <div style="white-space: nowrap">
+                                <label style="width: 30px; display: inline-block;">[{{ translation_language }}]:</label> <input type="text" name="text-{{ translation_language }}-{{ item.id }}" value="{{ translated_attr|default_if_none:"" }}" style="width:280px" />
+                            </div>
+                        {% endfortranslatedattrs %}
                     </td>
                     <td class="right-padding">
                         <input type="text" name="position-{{ item.id }}" value="{{ item.position }}" size="3" />
