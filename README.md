@@ -11,7 +11,7 @@ Basic usage
 * add lfs_carousel to INSTALLED_APPS in your settings.py
 * add lfs_carousel urls to your site urls.py like:
 
-  <pre><code>
+  <pre lang="python"><code>
       from lfs_carousel import carousel
       urlpatterns += patterns("",
         (...)
@@ -20,9 +20,10 @@ Basic usage
       )
   </code></pre>
   
-* add carousel to management panel to 'Shop' -> settings page as new tab:
+* add carousel to the management panel. It will be visible at 'Shop' -> 'Settings' page as new 'Carousel' tab:
   copy lfs/templates/manage/shop/shop.html to your theme and modify it by adding:
-  <pre><code>
+
+  ```html
       {% load lfs_carousel_tags %}
       ( ... )
       <div id="manage-tabs">
@@ -37,13 +38,15 @@ Basic usage
         {{ portlets|safe }}
       </div>
       {% carousel_management shop %}
-  </code></pre>
+  ```
   
 * add carousel to your shop's start page
+
   By default lfs_carousel uses coin-slider but you can use anything you want. 
+  
   First add necessary JavaScript and CSS files either to base.html or to shop.html:
 
-  <pre><code>
+  ```html
       <link rel="stylesheet" href="{{ STATIC_URL }}coin-slider/coin-slider-styles.css" type="text/css" />
       <script type="text/javascript" src="{{ STATIC_URL }}coin-slider/coin-slider.min.js"></script>
       <script type="text/javascript">
@@ -51,13 +54,13 @@ Basic usage
                 $('#coin-slider').coinslider({ width: 400, navigation: true, delay: 10000, hoverPause: true });
             });
       </script>
-  </code></pre>
+  ```
   
   Second: copy lfstheme/templates/lfs/shop/shop.html to your theme and add:
-  <pre><code>
+  ```html
     {% load lfs_carousel_tags %}
     (...)
     {% carousel_show shop %}
-  </code></pre>
+  ```
   
 * run syncdb (!)
