@@ -4,7 +4,7 @@ import os
 version = '1.0'
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
+README = open(os.path.join(here, 'README.md')).read()
 
 setup(name='lfs-carousel',
       version=version,
