@@ -64,3 +64,9 @@ Basic usage
   ```
   
 * run syncdb (!)
+
+
+History
+=======
+
+1.1 - added Django 1.6 compatibility
