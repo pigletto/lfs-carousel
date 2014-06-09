@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import json
 from functools import update_wrapper
+import json
 
 # django imports
 from django.contrib.auth.decorators import permission_required
