@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import json
+from functools import update_wrapper
+
 # django imports
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,9 +10,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.utils.functional import update_wrapper
 from django.utils.translation import ugettext_lazy as _
-from django.utils import simplejson
 from django.contrib.contenttypes.models import ContentType
 
 # lfs.imports
@@ -45,14 +46,14 @@ class LFSCarouselView(object):
         return CarouselItem
 
     def manage_items(self, request, content_type_id, object_id, as_string=False,
-                      template_name="lfs_carousel/items.html"):
+                     template_name="lfs_carousel/items.html"):
         """
         """
         ct = lfs_get_object_or_404(ContentType, pk=content_type_id)
         obj = ct.get_object_for_this_type(pk=object_id)
 
         items = self.get_item_cls().objects.filter(content_type=ct,
-                                              content_id=object_id)
+                                                   content_id=object_id)
 
         result = render_to_string(template_name, RequestContext(request, {
             "obj": obj,
@@ -63,7 +64,7 @@ class LFSCarouselView(object):
         if as_string:
             return result
         else:
-            result = simplejson.dumps({
+            result = json.dumps({
                 "items": result,
                 "message": _(u"Carousel items have been added."),
             }, cls=LazyEncoder)
@@ -89,7 +90,7 @@ class LFSCarouselView(object):
 
         carousel_changed.send(obj, request=request)
 
-        result = simplejson.dumps({"name": file_content.name, "type": "image/jpeg", "size": "123456789"})
+        result = json.dumps({"name": file_content.name, "type": "image/jpeg", "size": "123456789"})
         return HttpResponse(result)
 
     def update_items(self, request, content_type_id, object_id):
@@ -104,8 +105,8 @@ class LFSCarouselView(object):
             for key in request.POST.keys():
                 if key.startswith("delete-"):
                     try:
-                        id = key.split("-")[1]
-                        item = self.get_item_cls().objects.get(pk=id).delete()
+                        item_id = key.split("-")[1]
+                        self.get_item_cls().objects.get(pk=item_id).delete()
                     except (IndexError, ObjectDoesNotExist):
                         pass
 
@@ -140,7 +141,7 @@ class LFSCarouselView(object):
         carousel_changed.send(obj, request=request)
 
         html = [["#carousel-items", self.manage_items(request, content_type_id, object_id, as_string=True)]]
-        result = simplejson.dumps({
+        result = json.dumps({
             "html": html,
             "message": message,
         }, cls=LazyEncoder)
@@ -182,7 +183,7 @@ class LFSCarouselView(object):
 
         html = [["#carousel-items", self.manage_items(request, ct.pk, obj.pk, as_string=True)]]
 
-        result = simplejson.dumps({
+        result = json.dumps({
              "html": html,
         }, cls=LazyEncoder)
 
@@ -213,7 +214,7 @@ class LFSCarouselView(object):
         return update_wrapper(inner, view)
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url, include
+        from django.conf.urls import patterns, url
 
         def wrap(view, cacheable=False):
             def wrapper(*args, **kwargs):
