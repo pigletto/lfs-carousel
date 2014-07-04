@@ -5,6 +5,12 @@ LFS Carousel is pluggable carousel/slider application for use with LFS (Lightnin
 
 See project wiki for more details: https://github.com/pigletto/lfs-carousel/wiki/What-is-it%3F
 
+
+Compatibility
+=============
+For django 1.4 use branch 1.0, for 1.5+ use current tip
+
+
 Basic usage
 ===========
 
