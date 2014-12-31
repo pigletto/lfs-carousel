@@ -3,7 +3,6 @@ from functools import update_wrapper
 import json
 
 # django imports
-from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -70,6 +69,23 @@ class LFSCarouselView(object):
 
             return HttpResponse(result)
 
+    def list_items(self, request, content_type_id, object_id, as_string=False,
+                   template_name="lfs_carousel/items-list.html"):
+        """
+        """
+
+        result = self.manage_items(request, content_type_id, object_id, as_string=True, template_name=template_name)
+
+        if as_string:
+            return result
+        else:
+            result = json.dumps({
+                "items": result,
+                "message": _(u"Carousel items have been added."),
+            }, cls=LazyEncoder)
+
+            return HttpResponse(result, content_type='application/json')
+
     def add_item(self, request, content_type_id, object_id):
         """Adds an image/carousel item to object
         """
@@ -77,7 +93,7 @@ class LFSCarouselView(object):
         obj = ct.get_object_for_this_type(pk=object_id)
 
         if request.method == "POST":
-            for file_content in request.FILES.getlist("file"):
+            for file_content in request.FILES.getlist("files[]"):
                 item = self.get_item_cls()(content=obj)
                 try:
                     item.image.save(file_content.name, file_content, save=True)
@@ -137,13 +153,13 @@ class LFSCarouselView(object):
 
         carousel_changed.send(obj, request=request)
 
-        html = [["#carousel-items", self.manage_items(request, content_type_id, object_id, as_string=True)]]
+        html = [["#items-list", self.list_items(request, content_type_id, object_id, as_string=True)]]
         result = json.dumps({
             "html": html,
             "message": message,
         }, cls=LazyEncoder)
 
-        return HttpResponse(result)
+        return HttpResponse(result, content_type='application/json')
 
     def move_item(self, request, id):
         """ Moves the items with passed id up or down.
@@ -178,7 +194,7 @@ class LFSCarouselView(object):
 
         self.refresh_positions(ct, obj.pk)
 
-        html = [["#carousel-items", self.manage_items(request, ct.pk, obj.pk, as_string=True)]]
+        html = [["#items-list", self.list_items(request, ct.pk, obj.pk, as_string=True)]]
 
         result = json.dumps({
              "html": html,
@@ -221,7 +237,7 @@ class LFSCarouselView(object):
         urlpatterns = patterns('',
             url(r'^add-item/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.add_item), name="lfs_carousel_add_item"),
             url(r'^update-items/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.update_items), name="lfs_carousel_update_items"),
-            url(r'^manage-items/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.manage_items), name="lfs_carousel_manage_items"),
+            url(r'^manage-items/(?P<content_type_id>\d*)/(?P<object_id>\d*)/$', wrap(self.list_items), name="lfs_carousel_manage_items"),
             url(r'^move-item/(?P<id>\d+)$', self.move_item, name="lfs_carousel_move_item"),
         )
 
