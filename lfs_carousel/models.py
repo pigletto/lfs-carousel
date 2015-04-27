@@ -36,6 +36,7 @@ class CarouselItem(models.Model):
 
     class Meta:
         ordering = ("position", )
+        app_label = 'lfs_carousel'
 
     def __unicode__(self):
         return self.title
