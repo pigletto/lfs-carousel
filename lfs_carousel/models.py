@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -26,7 +26,7 @@ class CarouselItem(models.Model):
     """
     content_type = models.ForeignKey(ContentType, verbose_name=_(u"Content type"), related_name="carousel_item", blank=True, null=True)
     content_id = models.PositiveIntegerField(_(u"Content id"), blank=True, null=True)
-    content = generic.GenericForeignKey(ct_field="content_type", fk_field="content_id")
+    content = GenericForeignKey(ct_field="content_type", fk_field="content_id")
 
     title = models.CharField(_(u"Title"), blank=True, max_length=100)
     image = ImageWithThumbsField(_(u"Image"), upload_to="images", blank=True, null=True, sizes=THUMBNAIL_SIZES)
@@ -40,18 +40,3 @@ class CarouselItem(models.Model):
 
     def __unicode__(self):
         return self.title
-
-
-if 'south' in settings.INSTALLED_APPS:
-    # south rules
-    rules = [
-      (
-        (ImageWithThumbsField,),
-        [],
-        {
-            "sizes": ["sizes", {"default": None}]
-        },
-      )
-    ]
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules(rules, ["^lfs\.core\.fields\.thumbs"])
