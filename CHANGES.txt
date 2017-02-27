@@ -1,0 +1,3 @@
+1.0.0 - 2017.02.27
+ - first tagged release
+ - adds compatibility with django 1.10

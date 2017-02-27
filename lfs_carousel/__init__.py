@@ -1,1 +1,1 @@
-from lfs_carousel.views import LFSCarouselView, carousel
+default_app_config = 'lfs_carousel.apps.LFSCarouselConfig'
