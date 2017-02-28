@@ -1,3 +1,6 @@
+1.0.2 - 2017.02.28
+ - fix import statement
+
 1.0.1 - 2017.02.27
  - fix urls syntax (compatibility with 1.10)
 
