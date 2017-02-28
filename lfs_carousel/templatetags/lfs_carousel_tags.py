@@ -6,7 +6,7 @@ from django.template import Library
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 
-from lfs_carousel import carousel
+from lfs_carousel.views import carousel
 
 register = Library()
 
